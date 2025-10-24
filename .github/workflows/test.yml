@@ -51,13 +51,13 @@ jobs:
           # 🧑‍💻 AUTH SERVICE
           echo "PORT=3000" >> auth/.env
           echo "MONGODB_AUTH_URI=mongodb://mymongodb:27017/authdb_test" >> auth/.env
-          echo "JWT_SECRET=mySuperSecretKey_22001535_Phu_@2025" >> auth/.env
+          echo "JWT_SECRET=phutran123" >> auth/.env
           echo "RABBITMQ_URL=amqp://rabbitmq" >> auth/.env
 
           # 📦 PRODUCT SERVICE
           echo "PORT=3001" >> product/.env
           echo "MONGODB_PRODUCT_URI=mongodb://mongodb-product:27017/productdb_test" >> product/.env
-          echo "JWT_SECRET=mySuperSecretKey_22001535_Phu_@2025" >> product/.env
+          echo "JWT_SECRET=phutran123" >> product/.env
           echo "RABBITMQ_URL=amqp://rabbitmq" >> product/.env
 
           # 🧾 ORDER SERVICE
@@ -70,7 +70,7 @@ jobs:
           echo "AUTH_SERVICE_URL=http://auth:3000" >> api-gateway/.env
           echo "PRODUCT_SERVICE_URL=http://product:3001" >> api-gateway/.env
           echo "ORDER_SERVICE_URL=http://order:3002" >> api-gateway/.env
-          echo "JWT_SECRET=mySuperSecretKey_22001535_Phu_@2025" >> api-gateway/.env
+          echo "JWT_SECRET=phutran123" >> api-gateway/.env
 
       - name: 📦 Install dependencies
         run: |
@@ -88,9 +88,17 @@ jobs:
       - name: 🧪 Run tests for all services
         run: |
           echo "🧪 Running tests..."
+
+          echo "Testing Auth Service..."
           cd auth && npm test -- --passWithNoTests || true && cd ..
+
+          echo "Testing Product Service..."
           cd product && npm test -- --passWithNoTests || true && cd ..
+
+          echo "Testing Order Service..."
           cd order && npm test -- --passWithNoTests || true && cd ..
+
+          echo "Testing API Gateway..."
           cd api-gateway && npm test -- --passWithNoTests || true && cd ..
 
       - name: 🐳 Build Docker images (Compose)
@@ -116,7 +124,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 🧑‍💻 AUTH SERVICE
+      # Build & Push từng service riêng biệt
       - name: 🚀 Build and push AUTH image
         uses: docker/build-push-action@v5
         with:
@@ -124,7 +132,6 @@ jobs:
           push: true
           tags: 235419/auth:latest
 
-      # 📦 PRODUCT SERVICE
       - name: 🚀 Build and push PRODUCT image
         uses: docker/build-push-action@v5
         with:
@@ -132,7 +139,6 @@ jobs:
           push: true
           tags: 235419/product:latest
 
-      # 🧾 ORDER SERVICE
       - name: 🚀 Build and push ORDER image
         uses: docker/build-push-action@v5
         with:
@@ -140,7 +146,6 @@ jobs:
           push: true
           tags: 235419/order:latest
 
-      # 🌐 API GATEWAY
       - name: 🚀 Build and push API-GATEWAY image
         uses: docker/build-push-action@v5
         with:
@@ -149,4 +154,4 @@ jobs:
           tags: 235419/api-gateway:latest
 
       - name: ✅ Done
-        run: echo "✅ All Docker images built & pushed to Docker Hub (235419) successfully!"
+        run: echo "✅ All Docker images built & pushed to Docker Hub successfully!"
