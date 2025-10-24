@@ -1,0 +1,32 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 20000 src/test/**/*.test.js --exit",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+<<<<<<< HEAD
+=======
+    "chai": "^6.2.0",
+    "chai-http": "^5.1.2",
+>>>>>>> fda2f62f4767cf1d3188e44a976482e9092559d1
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mocha": "^11.7.4",
+    "mongoose": "^7.0.0"
+  },
+  "devDependencies": {
+<<<<<<< HEAD
+    "chai": "^6.2.0",
+=======
+>>>>>>> fda2f62f4767cf1d3188e44a976482e9092559d1
+    "dotenv": "^16.6.1"
+  }
+}
